@@ -51,8 +51,8 @@ function draw() {
   text("score"+score,500,50)
   if(gameState===PLAY){
     score=score+1
-    groud.velocityX=-(6+3*score/100)
-  if(keyDown("space") && trex.y >= 159) {
+    ground.velocityX=-(6+3*score/100)
+  if(keyDown("space") && trex.y >= 200) {
     trex.velocityY = -12;
   }
   trex.velocityY = trex.velocityY + 0.8;
@@ -65,8 +65,8 @@ function draw() {
   if(obstacleGroup.isTouching(trex)){
    gameState=END
   }
-  }
-  else if(gameState===END)){
+}
+  else if(gameState===END){
     gameOver.visible=true
     restart.visible=true
     ground.velocityX=0
@@ -126,4 +126,17 @@ function SpawnObstacle() {
     obstacle.lifetime=300
     obstacleGroup.add(obstacle)
   }
+}
+function reset() {
+  gameState=PLAY
+  gameOver.visible=false
+  restart.visible=false
+  obstacleGroup.destroyEach()
+  cloudsGroup.destroyEach()
+  trex.changeAnimation("running",trex_running)
+if (localStorage["highestscore"]<score)
+{
+  localStorage["highest score"]=score
+}
+  score=0
 }
